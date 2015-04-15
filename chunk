@@ -6,6 +6,18 @@ function require(...)local a,b=fs.combine,{}local function c(d)return fs.exists(
 -- MIT license - https://github.com/comp500/chunk-client/
 local serverpolicy = "/rom/.chunk/policy"
 local localpolicy = "/.chunk/policy/"
-local defaultpolicy = {}
-defaultpolicy["updateurl"] = ""
-defaultpolicy["allowupdate"] = true
+local settings = {}
+settings["updateurl"] = "https://github.com/comp500/chunk-client/raw/master/chunkupd"
+settings["allowupdate"] = true
+if fs.exists(serverpolicy) then
+    local f = fs.open(serverpolicy, "r")
+    serverpolicy = textutils.unserialize(f.readAll())
+    f.close()
+    for k,v in pairs(serverpolicy) do settings[k] = v end
+end
+if fs.exists(localpolicy) then
+    local f = fs.open(localpolicy, "r")
+    serverpolicy = textutils.unserialize(f.readAll())
+    f.close()
+    for k,v in pairs(localpolicy) do settings[k] = v end
+end
