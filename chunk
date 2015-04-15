@@ -1,0 +1,11 @@
+-- require() for CC by comp500
+-- MIT license - https://github.com/comp500/CCSnippets/
+function require(...)local a,b=fs.combine,{}local function c(d)return fs.exists(d)and d or false end;for e,f in ipairs(arg)do local g=c(a('usr/apis',f))or c(f)or shell.resolveProgram(f)if not g then printError("API "..f.." not found")table.insert(b,nil)else os.loadAPI(g)local h=_G[f]_G[f]=nil;table.insert(b,h)end end;return unpack(b)end
+
+-- chunk-client for CC by comp500 and contributors
+-- MIT license - https://github.com/comp500/chunk-client/
+local serverpolicy = "/rom/.chunk/policy"
+local localpolicy = "/.chunk/policy/"
+local defaultpolicy = {}
+defaultpolicy["updateurl"] = ""
+defaultpolicy["allowupdate"] = true
